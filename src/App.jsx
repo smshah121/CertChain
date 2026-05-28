@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { getContract } from "./contract/Contract";
+import { getReadOnlyContract } from "./contract/Contract";
 import AddCertificate from "./component/AddCertificate";
 import VerifyCertificate from "./component/VerifyCertificate";
 
@@ -13,7 +13,7 @@ export default function App() {
     const checkOwner = async () => {
       try {
         if (!window.ethereum) return;
-        const contract = await getContract();
+        const contract = await getReadOnlyContract();
         const owner = await contract.owner();
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();

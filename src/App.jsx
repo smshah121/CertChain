@@ -13,6 +13,9 @@ export default function App() {
       try {
         if (!window.ethereum) return;
         const contract = await getReadOnlyContract();
+        await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
         const owner = await contract.owner();
         const address = window.ethereum?.selectedAddress;
         

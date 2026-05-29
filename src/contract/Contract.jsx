@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import abi from "./abi.json";
 
-const contractAddress = "0x94a43945a3cb5c8b67dcef84c6e75b8cd4c92553";
+const contractAddress = "0x8739cE0C20C9207F4B4a0aCcA852332d50B2CEF4";
 const PUBLIC_RPC = "https://eth-sepolia.g.alchemy.com/v2/h7P5dwYkE6ngc2Hudx8Ji";
 export const getContract = async () => {
   if (!window.ethereum) throw new Error("MetaMask not installed");

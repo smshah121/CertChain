@@ -11,33 +11,42 @@ export default function App() {
   const [connecting, setConnecting] = useState(false);
 
   const connectWallet = async () => {
-    setConnecting(true);
-    try {
-  
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+  setConnecting(true);
 
-   
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0xaa36a7" }],
-      });
-
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const address = await signer.getAddress();
-
-    
-      const contract = await getReadOnlyContract();
-      const owner = await contract.owner();
-
-      setWallet(address);
-      setIsOwner(owner.toLowerCase() === address.toLowerCase());
-
-    } catch (err) {
-      console.error(err);
+  try {
+    if (!window.ethereum) {
+      alert("Please open this site in MetaMask app browser");
+      setConnecting(false);
+      return;
     }
-    setConnecting(false);
-  };
+
+    // request wallet connection
+    await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+
+    // switch network
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xaa36a7" }],
+    });
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const address = await signer.getAddress();
+
+    const contract = await getReadOnlyContract();
+    const owner = await contract.owner();
+
+    setWallet(address);
+    setIsOwner(owner.toLowerCase() === address.toLowerCase());
+
+  } catch (err) {
+    console.error(err);
+  }
+
+  setConnecting(false);
+};
 
   return (
     <>

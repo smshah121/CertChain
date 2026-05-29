@@ -11,7 +11,7 @@ export const getContract = async () => {
 
    await window.ethereum.request({
     method: "wallet_switchEthereumChain",
-    params: [{ chainId: "0xaa36a7" }], // 0xaa36a7 = Sepolia chain ID
+    params: [{ chainId: "0xaa36a7" }], 
   });
    await window.ethereum.request({ method: "eth_requestAccounts" });
 

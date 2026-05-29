@@ -29,7 +29,7 @@ function AddCertificate({ onSwitch }) {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
 
-      {/* Header */}
+
       <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center">
@@ -52,7 +52,7 @@ function AddCertificate({ onSwitch }) {
         </button>
       </header>
 
-      {/* Main */}
+
       <main className="flex-1 flex items-start justify-center px-4 py-12">
         <div className="w-full max-w-md">
 

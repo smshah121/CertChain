@@ -54,7 +54,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Issue Certificate button — only if owner */}
+        
           {isOwner && (
             <button
               onClick={onSwitch}
@@ -67,7 +67,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             </button>
           )}
 
-          {/* Connect Wallet button */}
+      
           {!wallet ? (
             <button
               onClick={onConnect}
@@ -96,7 +96,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
         </div>
       </header>
 
-      {/* Main */}
+
       <main className="flex-1 flex items-start justify-center px-4 py-12">
         <div className="w-full max-w-lg">
 
@@ -105,7 +105,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             <p className="text-slate-500 text-sm">Check authenticity of any certificate on the blockchain</p>
           </div>
 
-          {/* Search Box */}
+   
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <div className="flex gap-3">
               <input
@@ -135,7 +135,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             </div>
           </div>
 
-          {/* Valid Result */}
+
           {status === "found" && result && (
             <div className="mt-4 border border-emerald-500/30 bg-slate-900 rounded-2xl overflow-hidden">
               <div className="bg-emerald-500/10 px-6 py-4 flex items-center gap-2 border-b border-emerald-500/20">
@@ -171,7 +171,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             </div>
           )}
 
-          {/* Not Found */}
+    
           {status === "notfound" && (
             <div className="mt-4 border border-red-500/30 bg-red-500/5 rounded-2xl p-5 flex items-start gap-3">
               <div className="w-7 h-7 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
@@ -186,7 +186,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             </div>
           )}
 
-          {/* Error */}
+  
           {status === "error" && (
             <div className="mt-4 border border-amber-500/30 bg-amber-500/5 rounded-2xl p-5 flex items-start gap-3">
               <div className="w-7 h-7 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">

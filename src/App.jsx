@@ -13,10 +13,10 @@ export default function App() {
   const connectWallet = async () => {
     setConnecting(true);
     try {
-      // MetaMask popup
+  
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      // switch to Sepolia
+   
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: "0xaa36a7" }],
@@ -26,7 +26,7 @@ export default function App() {
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
 
-      // get owner from contract
+    
       const contract = await getReadOnlyContract();
       const owner = await contract.owner();
 

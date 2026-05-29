@@ -43,7 +43,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
 
       {/* Header */}
-      <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+     <header className="border-b border-slate-800 px-4 md:px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
             <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
           <span className="font-semibold tracking-tight">CertChain</span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
         
           {isOwner && (
             <button
@@ -72,7 +72,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
             <button
               onClick={onConnect}
               disabled={connecting}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-sm text-slate-300 transition-all disabled:opacity-50"
+             className="flex items-center justify-center gap-2 px-4 py-2 w-full md:w-auto bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-sm text-slate-300 transition-all disabled:opacity-50"
             >
               {connecting ? (
                 <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
       </header>
 
 
-      <main className="flex-1 flex items-start justify-center px-4 py-12">
+      <main className="flex-1 flex items-start justify-center px-3 md:px-4 py-8 md:py-12">
         <div className="w-full max-w-lg">
 
           <div className="mb-8">
@@ -107,7 +107,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
 
    
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <div className="flex gap-3">
+            <div className="flex flex-col md:flex-row gap-3">
               <input
                 value={certId}
                 onChange={(e) => setCertId(e.target.value)}
@@ -118,7 +118,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
               <button
                 onClick={verify}
                 disabled={status === "loading"}
-                className="px-5 py-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-900 font-semibold rounded-xl transition-all text-sm flex items-center gap-2 whitespace-nowrap"
+                className="w-full md:w-auto px-5 py-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-900 font-semibold rounded-xl transition-all text-sm flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 {status === "loading" ? (
                   <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -146,7 +146,7 @@ export default function VerifyCertificate({ onSwitch, isOwner, wallet, connectin
                 </div>
                 <span className="text-emerald-400 font-semibold text-sm">Valid Certificate</span>
               </div>
-              <div className="px-6 py-5 grid grid-cols-2 gap-5">
+              <div className="px-4 md:px-6 py-5 grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <p className="text-xs text-slate-500 mb-1">Student Name</p>
                   <p className="text-sm text-slate-200 font-medium">{result.name}</p>

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { getReadOnlyContract } from "../contract/Contract";
 
-export default function VerifyCertificate({ onSwitch, isOwner }) {
+export default function VerifyCertificate({ onSwitch, isOwner, wallet, connecting, onConnect }) {
   const [certId, setCertId] = useState("");
   const [result, setResult] = useState(null);
   const [status, setStatus] = useState(null);
+
+  const shortAddress = (addr) =>
+    addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : "";
 
   const verify = async () => {
     if (!certId.trim()) return;
@@ -23,7 +26,6 @@ export default function VerifyCertificate({ onSwitch, isOwner }) {
       const date = new Date(Number(data.timestamp) * 1000).toLocaleString();
 
       setResult({
-        status: "VALID",
         name: data.studentName,
         course: data.course,
         certId: data.certId,
@@ -51,18 +53,47 @@ export default function VerifyCertificate({ onSwitch, isOwner }) {
           <span className="font-semibold tracking-tight">CertChain</span>
         </div>
 
-        {/* Only show switch button if user is owner */}
-        {isOwner && (
-          <button
-            onClick={onSwitch}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-sm text-slate-300 transition-all"
-          >
-            <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Issue Certificate
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {/* Issue Certificate button — only if owner */}
+          {isOwner && (
+            <button
+              onClick={onSwitch}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-sm text-slate-300 transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Issue Certificate
+            </button>
+          )}
+
+          {/* Connect Wallet button */}
+          {!wallet ? (
+            <button
+              onClick={onConnect}
+              disabled={connecting}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-sm text-slate-300 transition-all disabled:opacity-50"
+            >
+              {connecting ? (
+                <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a5 5 0 00-10 0v2a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2z" />
+                </svg>
+              )}
+              {connecting ? "Connecting..." : "Connect Wallet"}
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg">
+              <div className={`w-2 h-2 rounded-full ${isOwner ? "bg-emerald-400" : "bg-slate-400"}`} />
+              <span className="text-xs text-slate-300 font-mono">{shortAddress(wallet)}</span>
+              {isOwner && <span className="text-xs text-emerald-400 font-medium">Owner</span>}
+            </div>
+          )}
+        </div>
       </header>
 
       {/* Main */}
@@ -115,7 +146,6 @@ export default function VerifyCertificate({ onSwitch, isOwner }) {
                 </div>
                 <span className="text-emerald-400 font-semibold text-sm">Valid Certificate</span>
               </div>
-
               <div className="px-6 py-5 grid grid-cols-2 gap-5">
                 <div>
                   <p className="text-xs text-slate-500 mb-1">Student Name</p>
@@ -134,7 +164,6 @@ export default function VerifyCertificate({ onSwitch, isOwner }) {
                   <p className="text-sm text-slate-200 font-medium">{result.timestamp}</p>
                 </div>
               </div>
-
               <div className="px-6 pb-5 pt-0 border-t border-slate-800">
                 <p className="text-xs text-slate-500 mb-1.5 mt-4">Blockchain Hash</p>
                 <p className="text-xs font-mono text-slate-400 break-all">{result.hash}</p>

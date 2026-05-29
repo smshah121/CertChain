@@ -20,12 +20,12 @@ export default function App() {
       return;
     }
 
-    // request wallet connection
+  
     await window.ethereum.request({
       method: "eth_requestAccounts",
     });
 
-    // switch network
+   
     await window.ethereum.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: "0xaa36a7" }],
